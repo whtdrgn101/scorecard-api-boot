@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import com.tdtech.scorecard.api.bow.entity.BowRequest;
 import com.tdtech.scorecard.api.bow.entity.BowResponse;
 import com.tdtech.scorecard.api.bow.service.BowService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -33,7 +33,7 @@ public class BowController {
     }
 
     @PostMapping("/{userId}/bows")
-    public BowResponse createBow(@RequestBody BowRequest bow) {
+    public BowResponse createBow(@Valid @RequestBody BowRequest bow) {
         return bowService.createBow(bow);
     }
     
