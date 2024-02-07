@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 import com.tdtech.scorecard.api.bow.entity.BowDto;
 import com.tdtech.scorecard.api.bow.entity.BowRequest;
 import com.tdtech.scorecard.api.bow.entity.BowResponse;
+import com.tdtech.scorecard.api.bow.entity.BowTypeDto;
 import com.tdtech.scorecard.api.bow.repository.BowRepository;
+import com.tdtech.scorecard.api.bow.repository.BowTypeRepository;
 
 @Service
 public class BowService {
     
     @Autowired
     BowRepository bowRepository;
+    @Autowired
+    BowTypeRepository bowTypeRepository;
 
     public List<BowResponse> getBowsByUserId(long userId) {
         List<BowDto> found = bowRepository.findByUserId(userId);
@@ -32,6 +36,8 @@ public class BowService {
 
     public BowResponse createBow(BowRequest bow) {
         BowDto b = new BowDto(bow);
+        BowTypeDto bowType = bowTypeRepository.findById(bow.getBowTypeId()).get();
+        b.setBowType(bowType);
         bowRepository.save(b);
         return new BowResponse(b);
     }

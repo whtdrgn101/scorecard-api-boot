@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class BowRequest {
     private long userId;
+    private long bowTypeId;
     @NotBlank
     private String name;
     private String manufacturer;

@@ -10,6 +10,7 @@ import lombok.Setter;
 public class BowResponse {
     private long id;
     private long userId;
+    private BowTypeResponse bowType;
     private String name;
     private String manufacturer;
     private String model;
@@ -18,13 +19,14 @@ public class BowResponse {
     private float braceHeight;
 
     public BowResponse(BowDto b) {
-        this.setId(b.getId());
-        this.setUserId(b.getUserId());
-        this.setName(b.getName());
-        this.setManufacturer(b.getManufacturer());
-        this.setModel(b.getModel());
-        this.setDrawWeight(b.getDrawWeight());
-        this.setAtaLength(b.getAtaLength());
-        this.setBraceHeight(b.getBraceHeight());
+        this.id = b.getId();
+        this.userId = b.getUserId();
+        this.bowType = new BowTypeResponse(b.getBowType());
+        this.name = b.getName();
+        this.manufacturer = b.getManufacturer();
+        this.model = b.getModel();
+        this.drawWeight = b.getDrawWeight();
+        this.ataLength = b.getAtaLength();
+        this.braceHeight = b.getBraceHeight();
     }
 }
