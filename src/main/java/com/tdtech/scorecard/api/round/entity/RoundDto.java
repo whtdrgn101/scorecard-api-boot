@@ -21,8 +21,19 @@ public class RoundDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long userId;
+    private long bowId;
+    private long roundTypeId;
     private Date roundDate;
     private String location;
     private String notes;
     private int score;
+
+    public RoundDto(RoundRequest round) {
+        this.id = round.getId();
+        this.userId = round.getUserId();
+        this.roundDate = round.getRoundDate();
+        this.location = round.getLocation();
+        this.notes = round.getNotes();
+        this.score = round.getScore();
+    }
 }
