@@ -14,7 +14,6 @@ import com.tdtech.scorecard.api.bow.entity.BowResponse;
 import com.tdtech.scorecard.api.bow.service.BowService;
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("/scorecard-api/v1.0/users")
 public class BowController {
@@ -28,7 +27,7 @@ public class BowController {
     }
 
     @GetMapping("/{userId}/bows/{bowId}")
-    public BowResponse getMethodName(@PathVariable long userId, @PathVariable long bowId) {
+    public BowResponse getBowByUserIdAndId(@PathVariable long userId, @PathVariable long bowId) {
         return bowService.getBowByUserIdAndId(userId, bowId);
     }
 

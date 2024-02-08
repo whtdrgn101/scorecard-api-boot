@@ -6,6 +6,8 @@ import com.tdtech.scorecard.api.round.entity.RoundRequest;
 import com.tdtech.scorecard.api.round.entity.RoundResponse;
 import com.tdtech.scorecard.api.round.service.RoundService;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/scorecard-api/v1.0/users")
@@ -30,7 +31,7 @@ public class RoundController {
     }
 
     @PostMapping("/{userId}/rounds")
-    public RoundResponse postMethodName(@RequestBody RoundRequest round) {
+    public RoundResponse createRound(@RequestBody RoundRequest round) {
         return roundService.createRound(round);
     }
     
