@@ -22,7 +22,6 @@ public class BowTypeController {
 
     @GetMapping("/bow-types")
     public List<BowTypeResponse> getBowTypeList() {
-        log.info("GET: getBowTypeList()");
         return bowTypeService.getBowTypesList();
     }
     
