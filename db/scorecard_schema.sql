@@ -10,6 +10,7 @@
 DROP DATABASE IF EXISTS `scorecard`;
 CREATE DATABASE IF NOT EXISTS `scorecard` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
 USE `scorecard`;
+GRANT ALL ON *.* TO 'scorecard_api_user'@'localhost';
 
 DROP TABLE IF EXISTS `bow`;
 CREATE TABLE IF NOT EXISTS `bow` (
