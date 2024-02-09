@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Configuration;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +17,21 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 public class AspectConfig {
     
-    @Before(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))")
-    public void beforeControllerAdviceLogging(JoinPoint jp) {
-        log.info(String.format("Controller Request: %s(%s)", jp.getSignature().getName(), this.getParamsAsString(jp)));
-    }
+    @Around(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))")
+    public void logControllerInteractionsAndErrors(ProceedingJoinPoint jp) {
 
-    @AfterReturning(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))", returning="returningObject")
-    public void afterControllerAdviceLogging(JoinPoint jp, Object returningObject) {
-        log.info(String.format("Controller Response: %s() -> %s", jp.getSignature().getName(), returningObject));
+        Object returningObject = new Object();
+        String controllerMethod = jp.getSignature().getName();
+
+        log.info(String.format("Controller Request: %s(%s)", controllerMethod, this.getParamsAsString(jp)));
+
+        try {
+            returningObject = jp.proceed();
+        } catch(Throwable e) {
+            log.error(String.format("Cought Exception in controller method [%s]: %s", controllerMethod, e.getMessage()));
+        } finally {
+            log.info(String.format("Controller Response: %s() -> %s", controllerMethod, returningObject));
+        }
     }
 
     private String getParamsAsString(JoinPoint jp) {
