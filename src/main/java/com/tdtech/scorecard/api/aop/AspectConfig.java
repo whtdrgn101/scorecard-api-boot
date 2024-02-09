@@ -20,7 +20,7 @@ public class AspectConfig {
     @Around(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))")
     public void logControllerInteractionsAndErrors(ProceedingJoinPoint jp) {
 
-        Object returningObject = new Object();
+        Object returningObject = null;
         String controllerMethod = jp.getSignature().getName();
 
         log.info(String.format("Controller Request: %s(%s)", controllerMethod, this.getParamsAsString(jp)));
