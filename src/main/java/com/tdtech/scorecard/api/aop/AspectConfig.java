@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -18,7 +19,12 @@ public class AspectConfig {
     
     @Before(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))")
     public void beforeControllerAdviceLogging(JoinPoint jp) {
-        log.info(String.format("Controller: %s(%s)", jp.getSignature().getName(), this.getParamsAsString(jp)));
+        log.info(String.format("Controller Request: %s(%s)", jp.getSignature().getName(), this.getParamsAsString(jp)));
+    }
+
+    @AfterReturning(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))", returning="returningObject")
+    public void afterControllerAdviceLogging(JoinPoint jp, Object returningObject) {
+        log.info(String.format("Controller Response: %s() -> %s", jp.getSignature().getName(), returningObject));
     }
 
     private String getParamsAsString(JoinPoint jp) {
