@@ -1,0 +1,19 @@
+type Query {
+    bowById(id: Int): BowResponse
+}
+
+type BowResponse {
+    id: Int
+    bowType: BowTypeResponse
+    name: String
+    manufacturer: String
+    model: String
+    drawWeight: Float
+    ataLength: Float 
+    braceHeight: Float 
+}
+
+type BowTypeResponse {
+    id: Int
+    name: String
+}

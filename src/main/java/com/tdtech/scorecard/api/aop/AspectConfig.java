@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AspectConfig {
     
     @Around(value="execution(* com.tdtech.scorecard.api..controller.*.*(..))")
-    public void logControllerInteractionsAndErrors(ProceedingJoinPoint jp) {
+    public Object logControllerInteractionsAndErrors(ProceedingJoinPoint jp) {
 
         Object returningObject = null;
         String controllerMethod = jp.getSignature().getName();
@@ -30,8 +30,9 @@ public class AspectConfig {
         } catch(Throwable e) {
             log.error(String.format("Cought Exception in controller method [%s]: %s", controllerMethod, e.getMessage()));
         } finally {
-            log.info(String.format("Controller Response: %s() -> %s", controllerMethod, returningObject));
+            log.info(String.format("Controller Response: %s(%s) -> %s", controllerMethod, this.getParamsAsString(jp), returningObject));
         }
+        return returningObject;
     }
 
     private String getParamsAsString(JoinPoint jp) {

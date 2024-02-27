@@ -1,5 +1,7 @@
 package com.tdtech.scorecard.api.bow.entity;
 
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +11,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@SchemaMapping
 public class BowResponse {
     private long id;
     private long userId;
